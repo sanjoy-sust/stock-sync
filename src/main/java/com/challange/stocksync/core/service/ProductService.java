@@ -21,11 +21,15 @@ public class ProductService {
     private final ProductMapper mapper;
 
     public void saveProduct(ProductDto productDto) {
+        Optional<Product> productOptional = productRepository.findBySkuAndVendor(productDto.getSku(), productDto.getVendor());
+
+        productOptional.ifPresent(product -> productDto.setId(product.getId()));
+
         Product product = mapper.toEntity(productDto);
         productRepository.save(product);
     }
 
-    public void updateProduct(ProductDto productDto) {
+    public void updateProduct(Long productId, ProductDto productDto) {
         if (productDto.getId() == null || !productRepository.existsById(productDto.getId())) {
             throw new CommonException(ErrorCode.RESOURCE_NOT_FOUND.getCode(), ErrorCode.RESOURCE_NOT_FOUND.getMessage());
         }
