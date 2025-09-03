@@ -84,3 +84,48 @@ XYZ456,Product B,0
 - implement all CRUD operations for products.
 - Add monitoring and alerting for sync failures.
 - Write more unit test cases.
+
+
+
+### SAMPLE CURL COMMANDS:
+- To get all products:
+  ```bash
+  curl -X 'GET' \
+  'http://localhost:8084/products' \
+  -H 'accept: */*'"
+  ```
+- JSON Response:
+  ```json
+   {
+  "data": [
+    {
+      "id": 1,
+      "sku": "ABC123",
+      "name": "Product A",
+      "stockQuantity": 8,
+      "vendor": "VendorA"
+    },
+    {
+      "id": 2,
+      "sku": "LMN789",
+      "name": "Product C",
+      "stockQuantity": 0,
+      "vendor": "VendorA"
+    },
+    {
+      "id": 3,
+      "sku": "XYZ123",
+      "name": "Product A",
+      "stockQuantity": 10,
+      "vendor": "VendorB"
+    },
+    {
+      "id": 4,
+      "sku": "XYZ456",
+      "name": "Product B",
+      "stockQuantity": 0,
+      "vendor": "VendorB"
+    }
+  ]
+  }
+  ```
