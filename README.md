@@ -31,7 +31,7 @@ A Spring Boot microservice for synchronizing product stock levels from two vendo
    ```mvn spring-boot:run```
 5. Access the application at `http://localhost:8084`.
 6. Access Swagger UI at `http://localhost:8084/swagger-ui.html`.
-7. Access H2 Console at `http://localhost:8084/h2-console` (JDBC URL: `jdbc:h2:mem:stocksyncdb`, User: `sa`, Password: leave blank).
+7. Access H2 Console at `http://localhost:8084/h2-console` (JDBC URL: `jdbc:h2:mem:stocksync`, User: `sa`, Password: leave blank).
 8. Test the `GET /products` endpoint using Swagger UI or any API client.
 9. Check logs for out-of-stock events.
 10. To stop the application, press `Ctrl+C` in the terminal.
