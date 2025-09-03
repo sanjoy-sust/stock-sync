@@ -40,3 +40,47 @@ A Spring Boot microservice for synchronizing product stock levels from two vendo
       ```docker build -t stock-sync .```
     - Run the Docker container:
       ```docker run -p 8084:8084 -v /tmp/vendor-b:/tmp/vendor-b stock-sync```
+12. Access the application at `http://localhost:8084` as described above.
+
+### Vendor A Simulation
+Vendor A is simulated using a separate Spring Boot controller (not included in this project). Example response:
+```json
+[
+  {"sku": "ABC123", "name": "Product A", "stockQuantity": 8},
+  {"sku": "LMN789", "name": "Product C", "stockQuantity": 0}
+]
+```
+Run a mock server at `http://localhost:8081/vendor-a/products` to provide this data.
+
+### Vendor B Simulation
+Vendor B provides a CSV file at `/tmp/vendor-b/stock.csv` with the structure:
+```csv
+sku,name,stockQuantity
+XYZ123,Product A,10
+XYZ456,Product B,0
+```
+
+## Assumptions
+- SKUs are unique per vendor, so a composite key (sku + vendor) is used.
+- Full sync is performed every 1 minutes, replacing existing data.
+- Stock-out events are logged using SLF4J.
+- Vendor A API is available at `http://localhost:8081/vendor-a/products`.
+- CSV file is always accessible at `/tmp/vendor-b/stock.csv`.
+
+## Trade-offs
+- Used H2 in-memory database for simplicity; production would use a persistent database like PostgreSQL.
+- Basic error handling for API and CSV; retry logic could be added for resilience.
+- No incremental sync; full sync is simpler but less efficient for large datasets.
+- Not implemented exception handling for CSV parsing errors.
+
+## Improvements
+- Add retry logic for Vendor B csv file read using Spring Retry.
+- Add more comprehensive integration tests and unit tests.
+- Implement proper exception handling and logging errors.
+- Add authentication and authorization for the API endpoints.
+- Use a persistent database for production use cases.
+- proper usage of mappers for entity to dto conversion.
+- Add pagination and filtering to the `GET /products` endpoint.
+- implement all CRUD operations for products.
+- Add monitoring and alerting for sync failures.
+- Write more unit test cases.

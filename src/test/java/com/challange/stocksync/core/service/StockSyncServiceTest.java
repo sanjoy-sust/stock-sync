@@ -62,7 +62,7 @@ class StockSyncServiceTest {
         // given
         ProductDto product = new ProductDto();
         product.setId(1L);
-        product.setSku("ABC123");
+        product.setSku("XYZ123");
         product.setName("Product A");
         product.setStockQuantity(0);
         product.setVendor("VendorB");
@@ -77,6 +77,6 @@ class StockSyncServiceTest {
         verify(productService, times(1)).saveProduct(product);
         List<ProductDto> products = productService.findAll();
         assertEquals(1, products.size());
-        assertEquals("ABC123", products.get(0).getSku());
+        assertEquals("XYZ123", products.get(0).getSku());
     }
 }
